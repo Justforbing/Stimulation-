@@ -7,82 +7,21 @@
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         /* Reset and Base Styles */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         :root {
-            --primary-color: #6366f1;
-            --secondary-color: #8b5cf6;
-            --accent-color: #06b6d4;
-            --success-color: #10b981;
-            --warning-color: #f59e0b;
-            --error-color: #ef4444;
-            --dark-bg: #0f0f23;
-            --card-bg: rgba(255, 255, 255, 0.1);
-            --glass-bg: rgba(255, 255, 255, 0.05);
-            --text-light: #e2e8f0;
-            --text-muted: #94a3b8;
-            --border-color: rgba(255, 255, 255, 0.1);
-            --shadow-light: 0 8px 32px rgba(99, 102, 241, 0.3);
-            --shadow-heavy: 0 20px 60px rgba(0, 0, 0, 0.4);
+            --primary-color: #6366f1; --secondary-color: #8b5cf6; --accent-color: #06b6d4;
+            --dark-bg: #0f0f23; --card-bg: rgba(255, 255, 255, 0.1); --glass-bg: rgba(255, 255, 255, 0.05);
+            --text-light: #e2e8f0; --text-muted: #94a3b8; --border-color: rgba(255, 255, 255, 0.1);
+            --shadow-light: 0 8px 32px rgba(99, 102, 241, 0.3); --shadow-heavy: 0 20px 60px rgba(0, 0, 0, 0.4);
         }
-
-        body {
-            font-family: 'Space Grotesk', sans-serif;
-            background: var(--dark-bg);
-            color: var(--text-light);
-            line-height: 1.6;
-            overflow-x: hidden;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-
-        /* Cosmic Background */
-        .cosmic-bg {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-            background: linear-gradient(135deg, #0f0f23 0%, #1e1b4b 50%, #312e81 100%);
-        }
-
-        .stars {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            background-image: 
-                radial-gradient(2px 2px at 20% 30%, #fff, transparent),
-                radial-gradient(2px 2px at 40% 70%, rgba(255,255,255,0.8), transparent),
-                radial-gradient(1px 1px at 60% 10%, #fff, transparent),
-                radial-gradient(1px 1px at 80% 50%, rgba(255,255,255,0.6), transparent),
-                radial-gradient(2px 2px at 90% 80%, #fff, transparent);
-            background-repeat: repeat;
-            background-size: 550px 550px, 350px 350px, 250px 250px, 150px 150px, 750px 750px;
-            animation: twinkle 20s infinite linear;
-        }
-        
-        @keyframes twinkle { 0% { opacity: 0.8; } 50% { opacity: 1; } 100% { opacity: 0.8; } }
+        body { font-family: 'Space Grotesk', sans-serif; background: var(--dark-bg); color: var(--text-light); line-height: 1.6; overflow-x: hidden; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        .cosmic-bg { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; background: linear-gradient(135deg, #0f0f23 0%, #1e1b4b 50%, #312e81 100%); }
+        .stars { position: absolute; width: 100%; height: 100%; background-image: radial-gradient(2px 2px at 20% 30%, #fff, transparent), radial-gradient(1px 1px at 80% 50%, #fff, transparent); background-repeat: repeat; background-size: 550px 550px; animation: twinkle 20s infinite linear; }
+        @keyframes twinkle { 50% { opacity: 1; } }
 
         /* Header */
-        .header {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            z-index: 1000;
-            backdrop-filter: blur(20px);
-            background: rgba(15, 15, 35, 0.8);
-            border-bottom: 1px solid var(--border-color);
-            padding: 1rem 0;
-        }
+        .header { position: fixed; top: 0; width: 100%; z-index: 1000; backdrop-filter: blur(20px); background: rgba(15, 15, 35, 0.8); border-bottom: 1px solid var(--border-color); padding: 1rem 0; }
         .header .container { display: flex; justify-content: space-between; align-items: center; }
         .logo { display: flex; align-items: center; gap: 0.5rem; font-family: 'Orbitron', monospace; }
         .logo-icon { font-size: 2rem; animation: spin 10s infinite linear; }
@@ -102,7 +41,7 @@
         .cta-button { background: linear-gradient(135deg, var(--primary-color), var(--secondary-color)); color: white; border: none; padding: 1rem 2rem; font-size: 1.1rem; border-radius: 12px; cursor: pointer; transition: all 0.3s; box-shadow: var(--shadow-light); }
         .cta-button:hover { transform: translateY(-2px); box-shadow: var(--shadow-heavy); }
         .orbit-container { position: relative; width: 400px; height: 400px; margin: auto; }
-        .central-object { position: absolute; top: 50%; left: 50%; width: 60px; height: 60px; background: radial-gradient(circle, var(--accent-color), var(--primary-color)); border-radius: 50%; transform: translate(-50%, -50%); box-shadow: 0 0 40px var(--accent-color); }
+        .central-object { position: absolute; top: 50%; left: 50%; width: 60px; height: 60px; background: radial-gradient(circle, var(--accent-color), var(--primary-color)); border-radius: 50%; transform: translate(-50%, -50%); }
         .orbit { position: absolute; border: 2px solid rgba(99, 102, 241, 0.3); border-radius: 50%; top: 50%; left: 50%; transform: translate(-50%, -50%); }
         .orbit-1 { width: 120px; height: 120px; animation: rotate 8s infinite linear; }
         .orbit-2 { width: 200px; height: 200px; animation: rotate 12s infinite linear reverse; }
@@ -119,31 +58,30 @@
         .card-icon { font-size: 3rem; margin-bottom: 1rem; }
         .simulation-card h3 { font-size: 1.5rem; margin-bottom: 1rem; color: var(--primary-color); }
         .simulation-card p { color: var(--text-muted); margin-bottom: 1.5rem; }
-        .card-preview { height: 80px; margin: 1.5rem 0; background: rgba(0, 0, 0, 0.2); border-radius: 10px; overflow: hidden; }
-        .linear-preview { position: relative; height: 100%; }
-        .motion-line { position: absolute; top: 50%; left: 10%; right: 10%; height: 2px; background: var(--primary-color); transform: translateY(-50%); }
-        .moving-dot { position: absolute; top: 50%; width: 12px; height: 12px; background: var(--accent-color); border-radius: 50%; transform: translateY(-50%); animation: moveLinear 3s infinite; }
+        .card-preview { height: 80px; margin: 1.5rem 0; background: rgba(0, 0, 0, 0.2); border-radius: 10px; overflow: hidden; position: relative; }
+        .card-button { background: linear-gradient(135deg, var(--primary-color), var(--secondary-color)); color: white; border: none; padding: 0.75rem 1.5rem; border-radius: 10px; cursor: pointer; transition: all 0.3s; width: 100%; margin-top: auto; }
+        
+        /* Card Preview Animations */
+        .linear-preview .motion-line { position: absolute; top: 50%; left: 10%; right: 10%; height: 2px; background: var(--primary-color); transform: translateY(-50%); }
+        .linear-preview .moving-dot { position: absolute; top: 50%; width: 12px; height: 12px; background: var(--accent-color); border-radius: 50%; transform: translateY(-50%); animation: moveLinear 3s infinite; }
         @keyframes moveLinear { 0% { left: 10%; } 50% { left: 85%; } 100% { left: 10%; } }
-        .card-button { background: linear-gradient(135deg, var(--primary-color), var(--secondary-color)); color: white; border: none; padding: 0.75rem 1.5rem; border-radius: 10px; cursor: pointer; transition: all 0.3s; width: 100%; }
-
-        /* Simulation Viewer - CRITICAL FIXES HERE */
-        .simulation-viewer {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(15, 15, 35, 0.98);
-            z-index: 2000;
-            display: none; /* Changed by JS to flex */
-            flex-direction: column;
-        }
+        .freefall-preview .ground-line { position: absolute; bottom: 5px; left: 10%; right: 10%; height: 2px; background: var(--warning-color, #f59e0b); }
+        .freefall-preview .falling-object { position: absolute; width: 10px; height: 10px; background: var(--error-color, #ef4444); border-radius: 50%; left: 50%; transform: translateX(-50%); animation: fall 1.5s infinite ease-in; }
+        @keyframes fall { 0% { top: 10px; } 100% { top: 60px; } }
+        .projectile-preview .trajectory-path { position: absolute; top: 20%; left: 10%; width: 80%; height: 60%; border: 2px solid var(--success-color, #10b981); border-top: none; border-right: none; border-bottom-left-radius: 40px; opacity: 0.5; }
+        .projectile-preview .projectile-object { position: absolute; width: 8px; height: 8px; background: var(--success-color, #10b981); border-radius: 50%; animation: projectile 3s infinite linear; }
+        @keyframes projectile { 0% { left: 10%; top: 60%; } 25% { left: 30%; top: 20%; } 50% { left: 50%; top: 30%; } 75% { left: 70%; top: 50%; } 100% { left: 90%; top: 70%; } }
+        .rotational-preview { display: flex; justify-content: center; align-items: center; }
+        .rotational-preview .spinning-object { width: 40px; height: 40px; border: 3px solid var(--secondary-color); border-top: 3px solid var(--accent-color); border-radius: 50%; animation: spin 1s infinite linear; }
+        
+        /* Simulation Viewer */
+        .simulation-viewer { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15, 15, 35, 0.98); z-index: 2000; display: none; flex-direction: column; }
         .simulation-viewer.active { display: flex; }
         .viewer-header { flex-shrink: 0; display: flex; justify-content: space-between; align-items: center; padding: 1rem 2rem; background: var(--glass-bg); border-bottom: 1px solid var(--border-color); }
         .viewer-header h3 { font-family: 'Orbitron', monospace; font-size: 1.5rem; color: var(--primary-color); }
         .close-viewer { background: none; border: none; color: var(--text-light); font-size: 2rem; cursor: pointer; }
-        .viewer-content { flex: 1; display: flex; gap: 1rem; padding: 1rem; min-height: 0; /* Important for flexbox */ }
-        .canvas-container { flex: 1; display: flex; justify-content: center; align-items: center; background: var(--card-bg); border-radius: 15px; min-width: 0; /* Important for flexbox */ }
+        .viewer-content { flex: 1; display: flex; gap: 1rem; padding: 1rem; min-height: 0; }
+        .canvas-container { flex: 1; display: flex; justify-content: center; align-items: center; background: rgba(0,0,0,0.2); border-radius: 15px; min-width: 0; }
         #simulationCanvas { max-width: 100%; max-height: 100%; border-radius: 10px; }
         .controls-panel { width: 300px; flex-shrink: 0; background: var(--card-bg); border-radius: 15px; padding: 1.5rem; overflow-y: auto; }
         .control-item { margin-bottom: 1.5rem; }
@@ -170,22 +108,15 @@
     </style>
 </head>
 <body>
-    <div class="cosmic-bg">
-        <div class="stars"></div>
-    </div>
-
+    <div class="cosmic-bg"><div class="stars"></div></div>
     <header class="header">
         <div class="container">
-            <div class="logo">
-                <div class="logo-icon">⚛️</div>
-                <h1>Physics in Motion</h1>
-            </div>
+            <div class="logo"><div class="logo-icon">⚛️</div><h1>Physics in Motion</h1></div>
             <nav class="nav">
                 <button class="nav-toggle" aria-label="Toggle navigation"><span></span><span></span><span></span></button>
                 <ul class="nav-list">
                     <li><a href="#home" class="nav-link active">Home</a></li>
                     <li><a href="#simulations" class="nav-link">Simulations</a></li>
-                    <li><a href="#about" class="nav-link">About</a></li>
                 </ul>
             </nav>
         </div>
@@ -197,7 +128,7 @@
                 <div class="hero-content">
                     <h2 class="hero-title">Discover the Magic of Motion</h2>
                     <p class="hero-subtitle">Interactive physics simulations that make learning fun and visual</p>
-                    <button class="cta-button" onclick="scrollToSimulations()">Start Exploring →</button>
+                    <button class="cta-button" onclick="document.getElementById('simulations').scrollIntoView({ behavior: 'smooth' });">Start Exploring →</button>
                 </div>
                 <div class="hero-visual">
                     <div class="orbit-container">
@@ -215,31 +146,23 @@
                 <h2 class="section-title">Choose Your Motion Adventure</h2>
                 <div class="simulation-grid">
                     <div class="simulation-card" data-type="linear">
-                        <div class="card-icon">📏</div>
-                        <h3>Linear Motion</h3>
-                        <p>Explore objects moving in straight lines.</p>
+                        <div class="card-icon">📏</div><h3>Linear Motion</h3><p>Explore objects moving in straight lines.</p>
                         <div class="card-preview"><div class="linear-preview"><div class="moving-dot"></div><div class="motion-line"></div></div></div>
                         <button class="card-button">Explore Linear Motion</button>
                     </div>
                     <div class="simulation-card" data-type="freefall">
-                        <div class="card-icon">🍎</div>
-                        <h3>Free Fall</h3>
-                        <p>Watch gravity in action as objects fall.</p>
-                         <div class="card-preview"></div>
+                        <div class="card-icon">🍎</div><h3>Free Fall</h3><p>Watch gravity in action as objects fall.</p>
+                        <div class="card-preview"><div class="freefall-preview"><div class="falling-object"></div><div class="ground-line"></div></div></div>
                         <button class="card-button">Explore Free Fall</button>
                     </div>
                     <div class="simulation-card" data-type="projectile">
-                        <div class="card-icon">🚀</div>
-                        <h3>Projectile Motion</h3>
-                        <p>Launch objects and see parabolic trajectories.</p>
-                        <div class="card-preview"></div>
+                        <div class="card-icon">🚀</div><h3>Projectile Motion</h3><p>Launch objects and see parabolic trajectories.</p>
+                        <div class="card-preview"><div class="projectile-preview"><div class="projectile-object"></div><div class="trajectory-path"></div></div></div>
                         <button class="card-button">Explore Projectiles</button>
                     </div>
                     <div class="simulation-card" data-type="rotational">
-                        <div class="card-icon">🌀</div>
-                        <h3>Rotational Motion</h3>
-                        <p>Spin objects and understand angular velocity.</p>
-                        <div class="card-preview"></div>
+                        <div class="card-icon">🌀</div><h3>Rotational Motion</h3><p>Spin objects and understand angular velocity.</p>
+                        <div class="card-preview"><div class="rotational-preview"><div class="spinning-object"></div></div></div>
                         <button class="card-button">Explore Rotation</button>
                     </div>
                 </div>
@@ -252,9 +175,7 @@
                 <button class="close-viewer">×</button>
             </div>
             <div class="viewer-content">
-                <div class="canvas-container">
-                    <canvas id="simulationCanvas"></canvas>
-                </div>
+                <div class="canvas-container"><canvas id="simulationCanvas"></canvas></div>
                 <div class="controls-panel">
                     <div class="control-group" id="controlsContainer"></div>
                     <div class="action-buttons">
@@ -264,72 +185,38 @@
                 </div>
             </div>
         </section>
-
-        <section id="about" class="about">
-            <!-- About content here -->
-        </section>
     </main>
 
     <footer class="footer">
-        <div class="container">
-            <p>&copy; 2025 Physics in Motion. Making physics fun for everyone! 🚀</p>
-        </div>
+        <div class="container"><p>&copy; 2025 Physics in Motion.</p></div>
     </footer>
 
 <script>
 // =================================================================================
-// MAIN APPLICATION LOGIC (formerly main.js)
+// MAIN APPLICATION LOGIC
 // =================================================================================
 class PhysicsApp {
-    constructor() {
-        this.currentSimulation = null;
-        this.animationId = null;
-        this.isPlaying = false;
-        this.canvas = null;
-        this.ctx = null;
-        this.init();
-    }
-
-    init() {
-        this.setupEventListeners();
-    }
-
+    constructor() { this.currentSimulation = null; this.animationId = null; this.isPlaying = false; this.canvas = null; this.ctx = null; this.init(); }
+    init() { this.setupEventListeners(); }
     setupEventListeners() {
-        document.querySelector('.nav-toggle')?.addEventListener('click', () => {
-            document.querySelector('.nav-list').classList.toggle('active');
-        });
-
-        document.querySelectorAll('.simulation-card').forEach(card => {
-            card.addEventListener('click', () => this.openSimulation(card.dataset.type));
-        });
-
+        document.querySelector('.nav-toggle')?.addEventListener('click', () => document.querySelector('.nav-list').classList.toggle('active'));
+        document.querySelectorAll('.simulation-card').forEach(card => card.addEventListener('click', () => this.openSimulation(card.dataset.type)));
         document.getElementById('playPauseBtn')?.addEventListener('click', () => this.togglePlayPause());
         document.getElementById('resetBtn')?.addEventListener('click', () => this.resetSimulation());
         document.querySelector('.close-viewer')?.addEventListener('click', () => this.closeSimulation());
         window.addEventListener('resize', () => this.handleResize());
     }
-
     openSimulation(type) {
         const viewer = document.getElementById('simulationViewer');
-        const title = document.getElementById('viewerTitle');
         this.canvas = document.getElementById('simulationCanvas');
-        const controlsContainer = document.getElementById('controlsContainer');
-
         if (!viewer || !this.canvas) return;
-
-        const titles = {
-            linear: 'Linear Motion', freefall: 'Free Fall',
-            projectile: 'Projectile Motion', rotational: 'Rotational Motion'
-        };
-        title.textContent = titles[type] || 'Simulator';
-
-        controlsContainer.innerHTML = '';
+        const titles = { linear: 'Linear Motion', freefall: 'Free Fall', projectile: 'Projectile Motion', rotational: 'Rotational Motion' };
+        document.getElementById('viewerTitle').textContent = titles[type] || 'Simulator';
+        document.getElementById('controlsContainer').innerHTML = '';
         viewer.classList.add('active');
         document.body.style.overflow = 'hidden';
-
         this.ctx = this.canvas.getContext('2d');
         this.setupCanvas();
-
         switch (type) {
             case 'linear': this.currentSimulation = new LinearMotionSimulation(this.canvas, this.ctx); break;
             case 'freefall': this.currentSimulation = new FreeFallSimulation(this.canvas, this.ctx); break;
@@ -337,23 +224,13 @@ class PhysicsApp {
             case 'rotational': this.currentSimulation = new RotationalMotionSimulation(this.canvas, this.ctx); break;
             default: return;
         }
-
-        this.setupControls(controlsContainer);
+        this.setupControls(document.getElementById('controlsContainer'));
         this.currentSimulation.init();
         this.currentSimulation.draw();
-
         this.isPlaying = false;
-        const playBtn = document.getElementById('playPauseBtn');
-        if (playBtn) playBtn.textContent = '▶️ Play';
+        document.getElementById('playPauseBtn').textContent = '▶️ Play';
     }
-
-    closeSimulation() {
-        this.pauseAnimation();
-        document.getElementById('simulationViewer').classList.remove('active');
-        document.body.style.overflow = '';
-        this.currentSimulation = null;
-    }
-
+    closeSimulation() { this.pauseAnimation(); document.getElementById('simulationViewer').classList.remove('active'); document.body.style.overflow = ''; this.currentSimulation = null; }
     setupCanvas() {
         const container = this.canvas.parentElement;
         if (!container) return;
@@ -365,12 +242,9 @@ class PhysicsApp {
         this.canvas.style.height = `${rect.height}px`;
         this.ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     }
-
     setupControls(container) {
         if (!this.currentSimulation?.getControls) return;
-        const controls = this.currentSimulation.getControls();
-        
-        controls.forEach(control => {
+        this.currentSimulation.getControls().forEach(control => {
             const controlItem = document.createElement('div');
             controlItem.className = 'control-item';
             const label = document.createElement('label');
@@ -378,4 +252,94 @@ class PhysicsApp {
             const input = document.createElement('input');
             Object.assign(input, { type: 'range', min: control.min, max: control.max, step: control.step || 1, value: control.value });
             const valueDisplay = document.createElement('span');
-            valueDisplay.textContent = ` ${control.value}${control.unit || '
+            valueDisplay.textContent = ` ${control.value}${control.unit || ''}`;
+            input.addEventListener('input', () => {
+                const value = parseFloat(input.value);
+                valueDisplay.textContent = ` ${value}${control.unit || ''}`;
+                this.currentSimulation?.updateParameter(control.name, value);
+            });
+            label.appendChild(valueDisplay);
+            controlItem.appendChild(label);
+            controlItem.appendChild(input);
+            container.appendChild(controlItem);
+        });
+    }
+    togglePlayPause() {
+        const playBtn = document.getElementById('playPauseBtn');
+        if (this.isPlaying) { this.pauseAnimation(); playBtn.textContent = '▶️ Play'; } 
+        else { this.startAnimation(); playBtn.textContent = '⏸️ Pause'; }
+    }
+    startAnimation() {
+        if (!this.currentSimulation || this.isPlaying) return;
+        this.isPlaying = true;
+        const animate = (timestamp) => {
+            if (!this.isPlaying) return;
+            this.currentSimulation.update(timestamp);
+            this.currentSimulation.draw();
+            this.animationId = requestAnimationFrame(animate);
+        };
+        this.animationId = requestAnimationFrame(animate);
+    }
+    pauseAnimation() { this.isPlaying = false; if (this.animationId) cancelAnimationFrame(this.animationId); }
+    resetSimulation() { this.pauseAnimation(); this.currentSimulation?.reset(); this.currentSimulation?.draw(); document.getElementById('playPauseBtn').textContent = '▶️ Play'; }
+    handleResize() { if (this.canvas && this.currentSimulation) { this.setupCanvas(); this.currentSimulation.resize(); this.currentSimulation.draw(); } }
+}
+
+// =================================================================================
+// BASE SIMULATION CLASS
+// =================================================================================
+class BaseSimulation {
+    constructor(canvas, ctx) { this.canvas = canvas; this.ctx = ctx; this.startTime = null; this.lastTime = 0; this.time = 0; this.dt = 0; this.gravity = 9.81; }
+    init() { this.startTime = null; this.lastTime = 0; this.time = 0; this.resize(); }
+    resize() { this.dpr = window.devicePixelRatio || 1; this.displayWidth = this.canvas.width / this.dpr; this.displayHeight = this.canvas.height / this.dpr; this.setupInitialState(); }
+    update(timestamp) { if (!this.startTime) { this.startTime = timestamp; this.lastTime = timestamp; } this.dt = (timestamp - this.lastTime) / 1000; if (this.dt > 0.1) this.dt = 0.1; this.time += this.dt; this.lastTime = timestamp; this.updatePhysics(); }
+    draw() { this.ctx.clearRect(0, 0, this.displayWidth, this.displayHeight); this.ctx.fillStyle = 'rgba(15, 15, 35, 0.8)'; this.ctx.fillRect(0, 0, this.displayWidth, this.displayHeight); this.drawObjects(); this.drawUI(); }
+    drawUI() { this.ctx.fillStyle = '#e2e8f0'; this.ctx.font = '16px Space Grotesk'; this.ctx.fillText(`Time: ${this.time.toFixed(2)}s`, 20, 30); }
+    reset() { this.init(); }
+    setupInitialState() {}
+    updatePhysics() {}
+    drawObjects() {}
+    getControls() { return []; }
+    updateParameter(name, value) { if (this.hasOwnProperty(name)) this[name] = value; this.reset(); }
+}
+
+// =================================================================================
+// SIMULATION-SPECIFIC LOGIC
+// =================================================================================
+class LinearMotionSimulation extends BaseSimulation {
+    constructor(c,x){super(c,x);this.initialVelocity=5;this.acceleration=2;this.pixelsPerMeter=50;}
+    setupInitialState(){this.position=0;this.velocity=this.initialVelocity;this.trackY=this.displayHeight/2;this.startX=50;this.endX=this.displayWidth-50;}
+    updatePhysics(){this.velocity=this.initialVelocity+this.acceleration*this.time;this.position=this.initialVelocity*this.time+.5*this.acceleration*this.time*this.time;if(this.startX+this.position*this.pixelsPerMeter>this.endX+20)this.reset()}
+    drawObjects(){this.ctx.strokeStyle="#6366f1";this.ctx.lineWidth=3;this.ctx.beginPath();this.ctx.moveTo(this.startX,this.trackY);this.ctx.lineTo(this.endX,this.trackY);this.ctx.stroke();const p=this.startX+this.position*this.pixelsPerMeter,g=this.ctx.createRadialGradient(p-5,this.trackY-5,0,p,this.trackY,15);g.addColorStop(0,"#8b5cf6");g.addColorStop(1,"#6366f1");this.ctx.fillStyle=g;this.ctx.beginPath();this.ctx.arc(p,this.trackY,15,0,2*Math.PI);this.ctx.fill()}
+    drawUI(){super.drawUI();this.ctx.fillStyle="#e2e8f0";this.ctx.font="16px Space Grotesk";this.ctx.fillText(`Position: ${this.position.toFixed(2)} m`,20,60);this.ctx.fillText(`Velocity: ${this.velocity.toFixed(2)} m/s`,20,85)}
+    getControls(){return[{name:"initialVelocity",label:"Initial Velocity",min:-10,max:10,step:1,value:this.initialVelocity,unit:"m/s"},{name:"acceleration",label:"Acceleration",min:-5,max:5,step:.5,value:this.acceleration,unit:"m/s²"}]}
+}
+class FreeFallSimulation extends BaseSimulation {
+    constructor(c,x){super(c,x);this.initialHeight=10;this.initialVelocity=0;this.bounceCoefficient=.6}
+    setupInitialState(){this.pixelsPerMeter=(this.displayHeight-100)/this.initialHeight;this.height=this.initialHeight;this.velocity=this.initialVelocity;this.hasLanded=!1;this.groundY=this.displayHeight-50;this.objectX=this.displayWidth/2}
+    updatePhysics(){if(this.hasLanded)return;this.velocity-=this.gravity*this.dt;this.height+=this.velocity*this.dt;this.height<=0&&this.velocity<0&&(this.height=0,this.velocity=-this.velocity*this.bounceCoefficient,Math.abs(this.velocity)<.5&&(this.hasLanded=!0))}
+    drawObjects(){const p=this.groundY-this.height*this.pixelsPerMeter;this.ctx.fillStyle="#059669";this.ctx.fillRect(0,this.groundY,this.displayWidth,50);const g=this.ctx.createRadialGradient(this.objectX-4,p-4,0,this.objectX,p,15);g.addColorStop(0,"#f59e0b");g.addColorStop(1,"#d97706");this.ctx.fillStyle=g;this.ctx.beginPath();this.ctx.arc(this.objectX,p,15,0,2*Math.PI);this.ctx.fill()}
+    drawUI(){super.drawUI();this.ctx.fillStyle="#e2e8f0";this.ctx.font="16px Space Grotesk";this.ctx.fillText(`Height: ${this.height.toFixed(2)} m`,20,60);this.ctx.fillText(`Velocity: ${this.velocity.toFixed(2)} m/s`,20,85)}
+    getControls(){return[{name:"initialHeight",label:"Initial Height",min:2,max:100,step:1,value:this.initialHeight,unit:"m"},{name:"initialVelocity",label:"Initial Velocity",min:-20,max:20,step:1,value:this.initialVelocity,unit:"m/s"}]}
+}
+class ProjectileMotionSimulation extends BaseSimulation {
+    constructor(c,x){super(c,x);this.initialVelocity=25;this.launchAngle=45;this.launchHeight=0}
+    setupInitialState(){const a=this.launchAngle*Math.PI/180,e=this.initialVelocity*Math.sin(a),i=e/this.gravity,t=this.launchHeight+e*i-.5*this.gravity*i*i,s=this.initialVelocity*Math.cos(a)*(i+Math.sqrt(2*t/this.gravity));this.pixelsPerMeter=Math.min((this.displayWidth-100)/s,(this.displayHeight-100)/t);this.velocity={x:this.initialVelocity*Math.cos(a),y:e};this.position={x:0,y:this.launchHeight};this.hasLanded=!1;this.groundY=this.displayHeight-50;this.launcherX=50;this.trail=[]}
+    updatePhysics(){if(this.hasLanded)return;this.velocity.y-=this.gravity*this.dt;this.position.x+=this.velocity.x*this.dt;this.position.y+=this.velocity.y*this.dt;this.position.y<=0&&this.velocity.y<0&&(this.hasLanded=!0)}
+    drawObjects(){this.ctx.fillStyle="#059669";this.ctx.fillRect(0,this.groundY,this.displayWidth,50);const a=this.launcherX+this.position.x*this.pixelsPerMeter,e=this.groundY-this.position.y*this.pixelsPerMeter;this.hasLanded||this.trail.push({x:a,y:e});this.trail.length>1&&(this.ctx.strokeStyle="#10b981",this.ctx.lineWidth=3,this.ctx.beginPath(),this.ctx.moveTo(this.trail[0].x,this.trail[0].y),this.trail.forEach(i=>this.ctx.lineTo(i.x,i.y)),this.ctx.stroke());const i=this.ctx.createRadialGradient(a-2,e-2,0,a,e,8);i.addColorStop(0,"#f97316");i.addColorStop(1,"#ea580c");this.ctx.fillStyle=i;this.ctx.beginPath();this.ctx.arc(a,e,8,0,2*Math.PI);this.ctx.fill()}
+    drawUI(){super.drawUI();this.ctx.fillStyle="#e2e8f0";this.ctx.font="14px Space Grotesk";this.ctx.fillText(`Position: (${this.position.x.toFixed(1)}, ${this.position.y.toFixed(1)}) m`,20,60)}
+    getControls(){return[{name:"initialVelocity",label:"Initial Velocity",min:5,max:100,step:1,value:this.initialVelocity,unit:"m/s"},{name:"launchAngle",label:"Launch Angle",min:1,max:89,step:1,value:this.launchAngle,unit:"°"}]}
+}
+class RotationalMotionSimulation extends BaseSimulation {
+    constructor(c,x){super(c,x);this.initialAngularVelocity=2;this.angularAcceleration=.5;this.radius=80;this.spokes=8}
+    setupInitialState(){this.angle=0;this.angularVelocity=this.initialAngularVelocity;this.centerX=this.displayWidth/2;this.centerY=this.displayHeight/2}
+    updatePhysics(){this.angularVelocity+=this.angularAcceleration*this.dt;this.angle+=this.angularVelocity*this.dt}
+    drawObjects(){this.ctx.save();this.ctx.translate(this.centerX,this.centerY);this.ctx.rotate(this.angle);const a=this.ctx.createRadialGradient(-20,-20,0,0,0,this.radius);a.addColorStop(0,"#8b5cf6");a.addColorStop(1,"#6366f1");this.ctx.fillStyle=a;this.ctx.beginPath();this.ctx.arc(0,0,this.radius,0,2*Math.PI);this.ctx.fill();this.ctx.strokeStyle="#e2e8f0";this.ctx.lineWidth=3;for(let e=0;e<this.spokes;e++)this.ctx.rotate(2*Math.PI/this.spokes),this.ctx.beginPath(),this.ctx.moveTo(0,0),this.ctx.lineTo(this.radius,0),this.ctx.stroke();this.ctx.restore()}
+    drawUI(){super.drawUI();this.ctx.fillStyle="#e2e8f0";this.ctx.font="14px Space Grotesk";this.ctx.fillText(`Angle: ${(this.angle*180/Math.PI).toFixed(1)}°`,20,60);this.ctx.fillText(`Angular Velocity: ${this.angularVelocity.toFixed(2)} rad/s`,20,80)}
+    getControls(){return[{name:"initialAngularVelocity",label:"Initial ω",min:-10,max:10,step:.5,value:this.initialAngularVelocity,unit:"rad/s"},{name:"angularAcceleration",label:"Angular α",min:-5,max:5,step:.1,value:this.angularAcceleration,unit:"rad/s²"}]}
+}
+document.addEventListener('DOMContentLoaded', () => new PhysicsApp());
+</script>
+
+</body>
+</html>
