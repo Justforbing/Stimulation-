@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Physics in Motion - Interactive Learning</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #6366f1;
+            --secondary-color: #8b5cf6;
+            --accent-color: #06b6d4;
+            --success-color: #10b981;
+            --warning-color: #f59e0b;
+            --error-color: #ef4444;
+            --dark-bg: #0f0f23;
+            --card-bg: rgba(255, 255, 255, 0.1);
+            --glass-bg: rgba(255, 255, 255, 0.05);
+            --text-light: #e2e8f0;
+            --text-muted: #94a3b8;
+            --border-color: rgba(255, 255, 255, 0.1);
+            --shadow-light: 0 8px 32px rgba(99, 102, 241, 0.3);
+            --shadow-heavy: 0 20px 60px rgba(0, 0, 0, 0.4);
+        }
+
+        body {
+            font-family: 'Space Grotesk', sans-serif;
+            background: var(--dark-bg);
+            color: var(--text-light);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Cosmic Background */
+        .cosmic-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: linear-gradient(135deg, #0f0f23 0%, #1e1b4b 50%, #312e81 100%);
+        }
+
+        .stars {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(2px 2px at 20% 30%, #fff, transparent),
+                radial-gradient(2px 2px at 40% 70%, rgba(255,255,255,0.8), transparent),
+                radial-gradient(1px 1px at 60% 10%, #fff, transparent),
+                radial-gradient(1px 1px at 80% 50%, rgba(255,255,255,0.6), transparent),
+                radial-gradient(2px 2px at 90% 80%, #fff, transparent);
+            background-repeat: repeat;
+            background-size: 550px 550px, 350px 350px, 250px 250px, 150px 150px, 750px 750px;
+            animation: twinkle 20s infinite linear;
+        }
+        
+        @keyframes twinkle { 0% { opacity: 0.8; } 50% { opacity: 1; } 100% { opacity: 0.8; } }
+
+        /* Header */
+        .header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            backdrop-filter: blur(20px);
+            background: rgba(15, 15, 35, 0.8);
+            border-bottom: 1px solid var(--border-color);
+            padding: 1rem 0;
+        }
+        .header .container { display: flex; justify-content: space-between; align-items: center; }
+        .logo { display: flex; align-items: center; gap: 0.5rem; font-family: 'Orbitron', monospace; }
+        .logo-icon { font-size: 2rem; animation: spin 10s infinite linear; }
+        .logo h1 { font-size: 1.5rem; background: linear-gradient(45deg, var(--primary-color), var(--accent-color)); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+        @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+        .nav-toggle { display: none; background: none; border: none; cursor: pointer; }
+        .nav-toggle span { display: block; width: 25px; height: 3px; background: var(--text-light); margin: 5px 0; border-radius: 2px; }
+        .nav-list { display: flex; list-style: none; gap: 2rem; }
+        .nav-link { color: var(--text-muted); text-decoration: none; font-weight: 500; transition: color 0.3s; }
+        .nav-link:hover, .nav-link.active { color: var(--primary-color); }
+
+        /* Hero Section */
+        .hero { min-height: 100vh; display: flex; align-items: center; padding-top: 100px; }
+        .hero .container { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
+        .hero-content h2 { font-family: 'Orbitron', monospace; font-size: 3.5rem; margin-bottom: 1rem; background: linear-gradient(135deg, var(--primary-color), var(--secondary-color), var(--accent-color)); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+        .hero-subtitle { font-size: 1.25rem; color: var(--text-muted); margin-bottom: 2rem; max-width: 500px; }
+        .cta-button { background: linear-gradient(135deg, var(--primary-color), var(--secondary-color)); color: white; border: none; padding: 1rem 2rem; font-size: 1.1rem; border-radius: 12px; cursor: pointer; transition: all 0.3s; box-shadow: var(--shadow-light); }
+        .cta-button:hover { transform: translateY(-2px); box-shadow: var(--shadow-heavy); }
+        .orbit-container { position: relative; width: 400px; height: 400px; margin: auto; }
+        .central-object { position: absolute; top: 50%; left: 50%; width: 60px; height: 60px; background: radial-gradient(circle, var(--accent-color), var(--primary-color)); border-radius: 50%; transform: translate(-50%, -50%); box-shadow: 0 0 40px var(--accent-color); }
+        .orbit { position: absolute; border: 2px solid rgba(99, 102, 241, 0.3); border-radius: 50%; top: 50%; left: 50%; transform: translate(-50%, -50%); }
+        .orbit-1 { width: 120px; height: 120px; animation: rotate 8s infinite linear; }
+        .orbit-2 { width: 200px; height: 200px; animation: rotate 12s infinite linear reverse; }
+        .orbit-3 { width: 280px; height: 280px; animation: rotate 16s infinite linear; }
+        .orbiting-object { position: absolute; width: 12px; height: 12px; background: var(--accent-color); border-radius: 50%; top: -6px; left: 50%; transform: translateX(-50%); }
+        @keyframes rotate { from { transform: translate(-50%, -50%) rotate(0deg); } to { transform: translate(-50%, -50%) rotate(360deg); } }
+
+        /* Simulations Section */
+        .simulations, .about { padding: 6rem 0; }
+        .section-title { font-family: 'Orbitron', monospace; font-size: 2.5rem; text-align: center; margin-bottom: 3rem; background: linear-gradient(45deg, var(--primary-color), var(--accent-color)); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+        .simulation-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; margin-top: 3rem; }
+        .simulation-card { background: var(--card-bg); backdrop-filter: blur(20px); border: 1px solid var(--border-color); border-radius: 20px; padding: 2rem; text-align: center; transition: all 0.3s; cursor: pointer; }
+        .simulation-card:hover { transform: translateY(-10px); box-shadow: var(--shadow-heavy); border-color: var(--primary-color); }
+        .card-icon { font-size: 3rem; margin-bottom: 1rem; }
+        .simulation-card h3 { font-size: 1.5rem; margin-bottom: 1rem; color: var(--primary-color); }
+        .simulation-card p { color: var(--text-muted); margin-bottom: 1.5rem; }
+        .card-preview { height: 80px; margin: 1.5rem 0; background: rgba(0, 0, 0, 0.2); border-radius: 10px; overflow: hidden; }
+        .linear-preview { position: relative; height: 100%; }
+        .motion-line { position: absolute; top: 50%; left: 10%; right: 10%; height: 2px; background: var(--primary-color); transform: translateY(-50%); }
+        .moving-dot { position: absolute; top: 50%; width: 12px; height: 12px; background: var(--accent-color); border-radius: 50%; transform: translateY(-50%); animation: moveLinear 3s infinite; }
+        @keyframes moveLinear { 0% { left: 10%; } 50% { left: 85%; } 100% { left: 10%; } }
+        .card-button { background: linear-gradient(135deg, var(--primary-color), var(--secondary-color)); color: white; border: none; padding: 0.75rem 1.5rem; border-radius: 10px; cursor: pointer; transition: all 0.3s; width: 100%; }
+
+        /* Simulation Viewer - CRITICAL FIXES HERE */
+        .simulation-viewer {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(15, 15, 35, 0.98);
+            z-index: 2000;
+            display: none; /* Changed by JS to flex */
+            flex-direction: column;
+        }
+        .simulation-viewer.active { display: flex; }
+        .viewer-header { flex-shrink: 0; display: flex; justify-content: space-between; align-items: center; padding: 1rem 2rem; background: var(--glass-bg); border-bottom: 1px solid var(--border-color); }
+        .viewer-header h3 { font-family: 'Orbitron', monospace; font-size: 1.5rem; color: var(--primary-color); }
+        .close-viewer { background: none; border: none; color: var(--text-light); font-size: 2rem; cursor: pointer; }
+        .viewer-content { flex: 1; display: flex; gap: 1rem; padding: 1rem; min-height: 0; /* Important for flexbox */ }
+        .canvas-container { flex: 1; display: flex; justify-content: center; align-items: center; background: var(--card-bg); border-radius: 15px; min-width: 0; /* Important for flexbox */ }
+        #simulationCanvas { max-width: 100%; max-height: 100%; border-radius: 10px; }
+        .controls-panel { width: 300px; flex-shrink: 0; background: var(--card-bg); border-radius: 15px; padding: 1.5rem; overflow-y: auto; }
+        .control-item { margin-bottom: 1.5rem; }
+        .control-item label { display: block; margin-bottom: 0.5rem; }
+        .control-item input[type="range"] { width: 100%; }
+        .action-buttons { display: flex; gap: 1rem; margin-top: 2rem; }
+        .action-btn { flex: 1; padding: 0.75rem; background: linear-gradient(135deg, var(--primary-color), var(--secondary-color)); color: white; border: none; border-radius: 10px; cursor: pointer; }
+
+        /* Footer */
+        .footer { background: var(--glass-bg); padding: 2rem 0; text-align: center; color: var(--text-muted); }
+
+        /* Responsive Design */
+        @media (max-width: 900px) {
+            .viewer-content { flex-direction: column; }
+            .controls-panel { width: 100%; height: auto; max-height: 40%; flex-shrink: 1; }
+            .canvas-container { order: -1; }
+        }
+        @media (max-width: 768px) {
+            .nav-toggle { display: block; }
+            .nav-list { display: none; position: absolute; top: 100%; left: 0; width: 100%; background: rgba(15, 15, 35, 0.95); flex-direction: column; padding: 1rem 0; }
+            .nav-list.active { display: flex; }
+            .hero .container { grid-template-columns: 1fr; text-align: center; }
+        }
+    </style>
+</head>
+<body>
+    <div class="cosmic-bg">
+        <div class="stars"></div>
+    </div>
+
+    <header class="header">
+        <div class="container">
+            <div class="logo">
+                <div class="logo-icon">⚛️</div>
+                <h1>Physics in Motion</h1>
+            </div>
+            <nav class="nav">
+                <button class="nav-toggle" aria-label="Toggle navigation"><span></span><span></span><span></span></button>
+                <ul class="nav-list">
+                    <li><a href="#home" class="nav-link active">Home</a></li>
+                    <li><a href="#simulations" class="nav-link">Simulations</a></li>
+                    <li><a href="#about" class="nav-link">About</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section id="home" class="hero">
+            <div class="container">
+                <div class="hero-content">
+                    <h2 class="hero-title">Discover the Magic of Motion</h2>
+                    <p class="hero-subtitle">Interactive physics simulations that make learning fun and visual</p>
+                    <button class="cta-button" onclick="scrollToSimulations()">Start Exploring →</button>
+                </div>
+                <div class="hero-visual">
+                    <div class="orbit-container">
+                        <div class="central-object"></div>
+                        <div class="orbit orbit-1"><div class="orbiting-object"></div></div>
+                        <div class="orbit orbit-2"><div class="orbiting-object"></div></div>
+                        <div class="orbit orbit-3"><div class="orbiting-object"></div></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="simulations" class="simulations">
+            <div class="container">
+                <h2 class="section-title">Choose Your Motion Adventure</h2>
+                <div class="simulation-grid">
+                    <div class="simulation-card" data-type="linear">
+                        <div class="card-icon">📏</div>
+                        <h3>Linear Motion</h3>
+                        <p>Explore objects moving in straight lines.</p>
+                        <div class="card-preview"><div class="linear-preview"><div class="moving-dot"></div><div class="motion-line"></div></div></div>
+                        <button class="card-button">Explore Linear Motion</button>
+                    </div>
+                    <div class="simulation-card" data-type="freefall">
+                        <div class="card-icon">🍎</div>
+                        <h3>Free Fall</h3>
+                        <p>Watch gravity in action as objects fall.</p>
+                         <div class="card-preview"></div>
+                        <button class="card-button">Explore Free Fall</button>
+                    </div>
+                    <div class="simulation-card" data-type="projectile">
+                        <div class="card-icon">🚀</div>
+                        <h3>Projectile Motion</h3>
+                        <p>Launch objects and see parabolic trajectories.</p>
+                        <div class="card-preview"></div>
+                        <button class="card-button">Explore Projectiles</button>
+                    </div>
+                    <div class="simulation-card" data-type="rotational">
+                        <div class="card-icon">🌀</div>
+                        <h3>Rotational Motion</h3>
+                        <p>Spin objects and understand angular velocity.</p>
+                        <div class="card-preview"></div>
+                        <button class="card-button">Explore Rotation</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="simulation-viewer" id="simulationViewer">
+            <div class="viewer-header">
+                <h3 id="viewerTitle">Simulation</h3>
+                <button class="close-viewer">×</button>
+            </div>
+            <div class="viewer-content">
+                <div class="canvas-container">
+                    <canvas id="simulationCanvas"></canvas>
+                </div>
+                <div class="controls-panel">
+                    <div class="control-group" id="controlsContainer"></div>
+                    <div class="action-buttons">
+                        <button id="playPauseBtn" class="action-btn">▶️ Play</button>
+                        <button id="resetBtn" class="action-btn">🔄 Reset</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="about" class="about">
+            <!-- About content here -->
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 Physics in Motion. Making physics fun for everyone! 🚀</p>
+        </div>
+    </footer>
+
+<script>
+// =================================================================================
+// MAIN APPLICATION LOGIC (formerly main.js)
+// =================================================================================
+class PhysicsApp {
+    constructor() {
+        this.currentSimulation = null;
+        this.animationId = null;
+        this.isPlaying = false;
+        this.canvas = null;
+        this.ctx = null;
+        this.init();
+    }
+
+    init() {
+        this.setupEventListeners();
+    }
+
+    setupEventListeners() {
+        document.querySelector('.nav-toggle')?.addEventListener('click', () => {
+            document.querySelector('.nav-list').classList.toggle('active');
+        });
+
+        document.querySelectorAll('.simulation-card').forEach(card => {
+            card.addEventListener('click', () => this.openSimulation(card.dataset.type));
+        });
+
+        document.getElementById('playPauseBtn')?.addEventListener('click', () => this.togglePlayPause());
+        document.getElementById('resetBtn')?.addEventListener('click', () => this.resetSimulation());
+        document.querySelector('.close-viewer')?.addEventListener('click', () => this.closeSimulation());
+        window.addEventListener('resize', () => this.handleResize());
+    }
+
+    openSimulation(type) {
+        const viewer = document.getElementById('simulationViewer');
+        const title = document.getElementById('viewerTitle');
+        this.canvas = document.getElementById('simulationCanvas');
+        const controlsContainer = document.getElementById('controlsContainer');
+
+        if (!viewer || !this.canvas) return;
+
+        const titles = {
+            linear: 'Linear Motion', freefall: 'Free Fall',
+            projectile: 'Projectile Motion', rotational: 'Rotational Motion'
+        };
+        title.textContent = titles[type] || 'Simulator';
+
+        controlsContainer.innerHTML = '';
+        viewer.classList.add('active');
+        document.body.style.overflow = 'hidden';
+
+        this.ctx = this.canvas.getContext('2d');
+        this.setupCanvas();
+
+        switch (type) {
+            case 'linear': this.currentSimulation = new LinearMotionSimulation(this.canvas, this.ctx); break;
+            case 'freefall': this.currentSimulation = new FreeFallSimulation(this.canvas, this.ctx); break;
+            case 'projectile': this.currentSimulation = new ProjectileMotionSimulation(this.canvas, this.ctx); break;
+            case 'rotational': this.currentSimulation = new RotationalMotionSimulation(this.canvas, this.ctx); break;
+            default: return;
+        }
+
+        this.setupControls(controlsContainer);
+        this.currentSimulation.init();
+        this.currentSimulation.draw();
+
+        this.isPlaying = false;
+        const playBtn = document.getElementById('playPauseBtn');
+        if (playBtn) playBtn.textContent = '▶️ Play';
+    }
+
+    closeSimulation() {
+        this.pauseAnimation();
+        document.getElementById('simulationViewer').classList.remove('active');
+        document.body.style.overflow = '';
+        this.currentSimulation = null;
+    }
+
+    setupCanvas() {
+        const container = this.canvas.parentElement;
+        if (!container) return;
+        const rect = container.getBoundingClientRect();
+        const dpr = window.devicePixelRatio || 1;
+        this.canvas.width = rect.width * dpr;
+        this.canvas.height = rect.height * dpr;
+        this.canvas.style.width = `${rect.width}px`;
+        this.canvas.style.height = `${rect.height}px`;
+        this.ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    }
+
+    setupControls(container) {
+        if (!this.currentSimulation?.getControls) return;
+        const controls = this.currentSimulation.getControls();
+        
+        controls.forEach(control => {
+            const controlItem = document.createElement('div');
+            controlItem.className = 'control-item';
+            const label = document.createElement('label');
+            label.textContent = control.label;
+            const input = document.createElement('input');
+            Object.assign(input, { type: 'range', min: control.min, max: control.max, step: control.step || 1, value: control.value });
+            const valueDisplay = document.createElement('span');
+            valueDisplay.textContent = ` ${control.value}${control.unit || '
